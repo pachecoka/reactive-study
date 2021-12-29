@@ -1,6 +1,5 @@
 package com.study.webflux.data.collections;
 
-import com.study.webflux.data.collections.BaseCollection;
 import com.study.webflux.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;

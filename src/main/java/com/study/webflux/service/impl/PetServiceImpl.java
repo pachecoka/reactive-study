@@ -9,9 +9,9 @@ import com.study.webflux.service.PetService;
 import com.study.webflux.web.requests.PetRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +38,4 @@ public class PetServiceImpl implements PetService {
                 }
         );
     }
-
 }
