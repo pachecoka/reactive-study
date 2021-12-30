@@ -11,6 +11,8 @@ public class PetCollectionToPetResponse {
         return PetResponse.builder()
                 .id(petCollection.getId())
                 .name(petCollection.getName())
+                .createdAt(petCollection.getCreatedAt())
+                .updatedAt(petCollection.getUpdatedAt())
                 .build();
     }
 }

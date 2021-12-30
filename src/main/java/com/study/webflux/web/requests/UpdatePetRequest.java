@@ -7,18 +7,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PetRequest {
+public class UpdatePetRequest {
 
     @NotBlank
     private String name;
 
-    @Builder.Default
-    private Status status = Status.AVAILABLE;
+    @NotNull
+    private Status status;
 
     @NotBlank
     private String category;
