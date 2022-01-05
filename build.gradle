@@ -7,7 +7,7 @@ plugins {
 
 
 group = 'com.study'
-version = '0.0.2-SNAPSHOT'
+version = project.hasProperty('version') ? version : '1.0.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -26,7 +26,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.kafka:spring-kafka'
 	compileOnly 'org.projectlombok:lombok'

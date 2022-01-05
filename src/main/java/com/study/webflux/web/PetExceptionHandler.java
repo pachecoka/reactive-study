@@ -1,7 +1,6 @@
 package com.study.webflux.web;
 
 
-import com.mongodb.MongoException;
 import com.study.webflux.web.responses.ErrorResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,8 @@ import reactor.core.publisher.Mono;
 @Log4j2
 public class PetExceptionHandler {
 
-    @ExceptionHandler(MongoException.class)
-    public Mono<ResponseEntity<Object>> handleMongoException(MongoException ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public Mono<ResponseEntity<Object>> handleMongoException(RuntimeException ex) {
         log.error("MongoException: {}", ex.getMessage());
         return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(ex.getMessage(), null)));
     }

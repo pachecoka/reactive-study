@@ -1,0 +1,94 @@
+name: ci-gke
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        default: 'cluster-reactive-study'
+        required: true
+        description: 'GKE Cluster name'
+      project:
+        default: 'reactive-study'
+        required: true
+        description: 'GCP Project ID'
+      region:
+        default: 'us-east1'
+        required: true
+        description: 'Cloud Region'
+      namespace:
+        default: 'reactive-ns'
+        required: true
+        description: 'GKE Cluster Namespace'
+      release-name:
+        default: 'reactive-study'
+        required: true
+        description: 'Release name'
+      repository:
+        default: 'docker-images'
+        required: true
+        description: 'Images repository name'
+      version:
+        default: '1.0.0'
+        required: true
+        description: 'Project version'
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ secrets.NODE_K8S_SA_SECRET }}
+          project_id: ${{ github.event.inputs.project }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker ${{ github.event.inputs.region }}-docker.pkg.dev
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@v0.2.1
+        with:
+          cluster_name: ${{ github.event.inputs.cluster }}
+          location: ${{ github.event.inputs.region }}
+          credentials: ${{ secrets.NODE_K8S_SA_SECRET }}
+
+      # Build the Docker image
+      - name: Build
+        run: |-
+          docker build \
+            --build-arg PROJECT_VERSION=${{ github.event.inputs.version }} \
+            -t ${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:latest \
+            -t ${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:${{ github.event.inputs.version }} \
+            -t ${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:$GITHUB_SHA \
+            .
+
+      # Push the Docker image to Google Container Registry
+      - name: Publish
+        run: |-
+          docker push ${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:latest
+          docker push ${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:${{ github.event.inputs.version }}
+          docker push ${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:$GITHUB_SHA
+
+      # Set up Helm
+      - name: Set up Helm
+        run: |-
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+
+      # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |-
+          helm upgrade -i --history-max 5 \
+            --set cloud.project.name=${{ github.event.inputs.project }} \
+            --set application.image=${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }} \
+            --set application.version=${{ github.event.inputs.version }} \
+            --namespace ${{ github.event.inputs.namespace }} \
+            ${{ github.event.inputs.release-name }} \
+            ./webflux
