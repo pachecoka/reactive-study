@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       cluster:
-        default: 'cluster-reactive-study'
+        default: 'reactive-study-cluster'
         required: true
         description: 'GKE Cluster name'
       project:
-        default: 'reactive-study'
+        default: 'reactive-study-337414'
         required: true
         description: 'GCP Project ID'
       region:

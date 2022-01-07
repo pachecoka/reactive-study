@@ -14,7 +14,7 @@ public class PetRepository {
     };
 
     public Mono<PetCollection> findById(String id){
-        return Mono.just(PetCollection.builder().status(Status.AVAILABLE).name("Kurama").category("cat").build());
+        return Mono.just(PetCollection.builder().status(Status.AVAILABLE).name("Gandalf").category("cat").build());
     };
 
     public Flux<PetCollection> findByStatus(Status status){
