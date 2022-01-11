@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.cloud.gcp.data.firestore.Document;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Document(collectionName = "pet")
 public class PetCollection extends BaseCollection {
 
     private String name;
