@@ -87,7 +87,7 @@ jobs:
         run: |-
           helm upgrade -i --history-max 5 \
             --set cloud.project.name=${{ github.event.inputs.project }} \
-            --set application.image=${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }} \
+            --set application.image=${{ github.event.inputs.region }}-docker.pkg.dev/${{ github.event.inputs.project }}/${{ github.event.inputs.repository }}/${{ github.event.inputs.release-name }}:$GITHUB_SHA \
             --set application.version=${{ github.event.inputs.version }} \
             --namespace ${{ github.event.inputs.namespace }} \
             ${{ github.event.inputs.release-name }} \
