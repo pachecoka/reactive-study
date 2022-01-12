@@ -38,3 +38,5 @@ test-splits/
 /.teamcity/target
 /gradle.ipr
 /gradle.iws
+
+[Ll]ogs/
