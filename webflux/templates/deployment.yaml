@@ -23,6 +23,9 @@ spec:
         ports:
         - containerPort: {{ .Values.application.pod.container.port }}
           protocol: {{ .Values.application.pod.container.protocol }}
+        env:
+        - name: SPRING_CONFIG_LOCATION
+          value: /opt/reactive-study/webflux/templates/configmap.yaml
         envFrom:
         - configMapRef:
             name: {{ .Release.Name }}
