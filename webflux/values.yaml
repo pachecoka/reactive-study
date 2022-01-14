@@ -19,12 +19,12 @@ spring:
     deserialization:
       FAIL_ON_UNKNOWN_PROPERTIES: false
     serialization:
-      writeDatesAsTimestamps: false
+      WRITE_DATES_AS_TIMESTAMPS: false
     defaultPropertyInclusion: non_null
 
   data:
     mongodb:
-      host: reactive-mongodb-cluste.o3q83.mongodb.net
+      host: 'reactive-mongodb-cluste.o3q83.mongodb.net'
       port: 27017
       username: admin
       password: admin
