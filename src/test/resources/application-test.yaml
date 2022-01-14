@@ -3,6 +3,9 @@ spring:
     banner-mode: off
   application:
     name: reactive-study
+  config:
+    activate:
+      onProfile: test
 
   jackson:
     deserialization:
