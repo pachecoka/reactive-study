@@ -11,7 +11,7 @@ data:
   logging.file.path: /opt/{{ .Release.Name }}/logs
   server.forward-headers-strategy: {{ .Values.server.forwardHeadersStrategy }}
   spring.data.mongodb.host: {{ .Values.spring.data.mongodb.host }}
-  spring.data.mongodb.port: {{ .Values.spring.data.mongodb.port }}
+  spring.data.mongodb.port: {{ .Values.spring.data.mongodb.port | quote }}
   spring.data.mongodb.username: {{ .Values.spring.data.mongodb.username }}
   spring.data.mongodb.password: {{ .Values.spring.data.mongodb.password }}
   spring.data.mongodb.authentication-database: {{ .Values.spring.data.mongodb.authenticationDatabase }}
