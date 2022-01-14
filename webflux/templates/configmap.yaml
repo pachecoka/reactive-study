@@ -7,12 +7,15 @@ metadata:
     {{- include "chart.labels" . | indent 4 }}
     {{- include "common.labels" . | indent 4 }}
 data:
-  logging.level.com.study.webflux: {{ .Values.logging.level.com.study.webflux }}
-  logging.file.path: /opt/{{ .Release.Name }}/logs
-  server.forward-headers-strategy: {{ .Values.server.forwardHeadersStrategy }}
-  spring.data.mongodb.host: {{ .Values.spring.data.mongodb.host }}
-  spring.data.mongodb.port: {{ .Values.spring.data.mongodb.port | quote }}
-  spring.data.mongodb.username: {{ .Values.spring.data.mongodb.username }}
-  spring.data.mongodb.password: {{ .Values.spring.data.mongodb.password }}
-  spring.data.mongodb.authentication-database: {{ .Values.spring.data.mongodb.authenticationDatabase }}
-  spring.data.mongodb.database: {{ .Values.spring.data.mongodb.database }}
+  SPRING_JACKSON_DESERIALIZATION_FAIL_ON_UNKNOWN_PROPERTIES: {{ .Values.spring.jackson.deserialization.FAIL_ON_UNKNOWN_PROPERTIES }}
+  SPRING_JACKSON_SERIALIZATION_WRITE_DATE_AS_TIMESTAMPS: {{ .Values.spring.jackson.serialization.writeDatesAsTimestamps }}
+  SPRING_JACKSON_DEFAULT_PROPERTY_INCLUSION: {{ .Values.spring.jackson.defaultPropertyInclusion }}
+  SPRING_DATA_MONGODB_HOST: {{ .Values.spring.data.mongodb.host }}
+  SPRING_DATA_MONGODB_PORT: {{ .Values.spring.data.mongodb.port | quote }}
+  SPRING_DATA_MONGODB_USERNAME: {{ .Values.spring.data.mongodb.username }}
+  SPRING_DATA_MONGODB_PASSWORD: {{ .Values.spring.data.mongodb.password }}
+  SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: {{ .Values.spring.data.mongodb.authenticationDatabase }}
+  SPRING_DATA_MONGODB_DATABASE: {{ .Values.spring.data.mongodb.database }}
+  SERVER_FORWARD_HEADERS_STRATEGY: {{ .Values.server.forwardHeadersStrategy }}
+  LOGGING_LEVEL_COM_STUDY_WEBFLUX: {{ .Values.logging.level.com.study.webflux }}
+  LOGGING_FILE_PATH: /opt/{{ .Release.Name }}/logs

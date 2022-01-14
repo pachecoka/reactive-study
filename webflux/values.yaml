@@ -1,3 +1,4 @@
+# kubernetes
 application:
   type: application
   environment: dev
@@ -12,7 +13,15 @@ application:
       port: 8080
       protocol: TCP
 
+# application.yaml
 spring:
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    serialization:
+      writeDatesAsTimestamps: false
+    defaultPropertyInclusion: non_null
+
   data:
     mongodb:
       host: reactive-mongodb-cluste.o3q83.mongodb.net
@@ -24,6 +33,7 @@ spring:
 
 server:
   forwardHeadersStrategy: framework
+
 logging:
   level:
     com:

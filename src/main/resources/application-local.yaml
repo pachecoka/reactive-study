@@ -1,0 +1,32 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: reactive-study
+
+  jackson:
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+  data:
+    mongodb:
+      host: banana
+      port: 27017
+      username: root
+      password: root
+      authentication-database: admin
+      database: pet-db
+
+server:
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    com:
+      study:
+        webflux: INFO
+  file:
+    path: logs
