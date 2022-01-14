@@ -12,6 +12,16 @@ application:
       port: 8080
       protocol: TCP
 
+spring:
+  data:
+    mongodb:
+      host: reactive-mongodb-cluste.o3q83.mongodb.net
+      port: 27017
+      username: admin
+      password: admin
+      authenticationDatabase: admin
+      database: pet-db
+
 server:
   forwardHeadersStrategy: framework
 logging:
