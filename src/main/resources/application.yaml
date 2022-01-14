@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: localhost
+      host: banana
       port: 27017
       username: root
       password: root
