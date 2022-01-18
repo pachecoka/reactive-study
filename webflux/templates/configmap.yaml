@@ -8,14 +8,9 @@ metadata:
     {{- include "common.labels" . | indent 4 }}
 data:
   SPRING_JACKSON_DESERIALIZATION_FAIL_ON_UNKNOWN_PROPERTIES: {{ .Values.spring.jackson.deserialization.FAIL_ON_UNKNOWN_PROPERTIES | squote }}
-  SPRING_JACKSON_SERIALIZATION_WRITE_DATES_AS_TIMESTAMPS: {{ .Values.spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS | squote }}
+  SPRING_JACKSON_SERIALIZATION_WRITE_DATES_AS_TIMESTAMPS: {{ .Values.spring.jackson.serialization.writeDatesAsTimestamps | squote }}
   SPRING_JACKSON_DEFAULT_PROPERTY_INCLUSION: {{ .Values.spring.jackson.defaultPropertyInclusion }}
-  SPRING_DATA_MONGODB_HOST: {{ .Values.spring.data.mongodb.host }}
-  SPRING_DATA_MONGODB_PORT: {{ .Values.spring.data.mongodb.port | quote }}
-  SPRING_DATA_MONGODB_USERNAME: {{ .Values.spring.data.mongodb.username }}
-  SPRING_DATA_MONGODB_PASSWORD: {{ .Values.spring.data.mongodb.password }}
-  SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE: {{ .Values.spring.data.mongodb.authenticationDatabase }}
-  SPRING_DATA_MONGODB_DATABASE: {{ .Values.spring.data.mongodb.database }}
+  SPRING_DATA_MONGODB_URI: {{ .Values.spring.data.mongodb.uri }}
   SERVER_FORWARD_HEADERS_STRATEGY: {{ .Values.server.forwardHeadersStrategy }}
   LOGGING_LEVEL_COM_STUDY_WEBFLUX: {{ .Values.logging.level.com.study.webflux }}
   LOGGING_FILE_PATH: /opt/{{ .Release.Name }}/logs
