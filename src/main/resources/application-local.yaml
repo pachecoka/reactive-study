@@ -13,7 +13,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://admin:admin@localhost:27017/pet-db
+      uri: mongodb+srv://admin:admin@study-cluster.o3q83.mongodb.net/pet-db
 
 server:
   forward-headers-strategy: framework

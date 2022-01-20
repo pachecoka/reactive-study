@@ -24,7 +24,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb+srv://admin:admin@reactive-mongodb-cluste.o3q83.mongodb.net/pet-db
+      uri: mongodb+srv://admin:admin@study-cluster.o3q83.mongodb.net/pet-db
 
 server:
   forwardHeadersStrategy: framework

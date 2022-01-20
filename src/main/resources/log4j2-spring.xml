@@ -2,7 +2,9 @@
 <Configuration>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <JsonLayout includeTimeMillis="true" complete="false" compact="true" eventEol="true" />
+            <PatternLayout>
+                <pattern>%d %highlight{%p} %style{%C{1.} [%t] %m}{bold,green}%n</pattern>
+            </PatternLayout>
         </Console>
 
         <RollingFile name="RollingFile" fileName="./logs/main.log" filePattern="./logs/$${date:yyyy-MM}/main-%d{yyyy-MM-dd}-%i.log.gz">
